@@ -1,0 +1,112 @@
+Michael Lewis
+3/20/16
+
+Pseudocode/flowchart for Sudoku Checker (problem 6.14)
+
+I've created a flowchart in which the structure of our program into three phases:
+  1. A board initialization 
+  2. A board validation phase
+  3. An output results phase
+The user is then given the option of trying another configuration, or exiting the
+program. I've added a note below the flowchart, describing a possible modification to
+the output results phase that we could eventually make, in which the results of
+any duplicates found are displayed as a grid.
+
+Board initialization phase – prompt user to fill the Sudoku board (a 9 x 9 2D array) with
+any partial assignment of their choice.
+  •	User enters a row number.
+  	o	If row is not between 1 and 9, prompt user for valid input.
+  •	User enters a column number.
+  	o	If column is not between 1 and 9, prompt user for valid input.
+  •	User enters the digit they wish to assign to that square.
+  	o	If digit is not between 1 and 9, prompt user for valid input.
+  •	Prompt user if they would like to enter a value for another square
+  	o	If yes, ask for another row, column, and digit.
+  	o	If no, exit the board init phase.
+Board validation phase – check each row, column, and 3 x 3 subarray for duplicates.
+  •	Process each row:
+  	o	Begin with top-most row.
+  			Loop through current row, storing its 9 digits in a temporary check array.
+  			Loop through the values in the temp array, checking each value against the values
+  		that follow it. If any are equivalent, push them to a vector named for that row
+  		(e.g., “duplicates_Row_1”).
+  	o	After each row is processed, proceed downward, through the bottom (9th) row.
+  •	Process each column:
+  	o	Begin with left-most column.
+  			Loop through current column, storing its 9 digits in a temporary checking array.
+  			Loop through the values in the temp array, checking each value against the values
+  		that follow it. If any are equivalent, push them to a vector named for that column
+  		(e.g., “duplicates_Column_1”).
+  	o	After each column is processed, proceed to the right, through the right-most (9th)
+  	column.
+  •	Process each 3 x 3 subarray:
+  	o	Create a “placeholder” marker at square (1, 1).
+  	o	Loop through the first 3 x 3 subarray, beginning with the placeholder at (1, 1) for
+  	a total of 9 squares ending at (3, 3):
+  			Process three squares of top row (beginning at placeholder marker), then three
+  		squares of next row (beginning at column of starting marker), then three squares of
+  		next row (beginning at column of starting marker. The 9 digits of the subarray are
+  		stored in a temporary checking array.
+  			Loop through the values in the temp array, checking each value against the values
+  		that follow it. If any are equivalent, push them to a vector named for that subarray
+  		(e.g., “duplicates_Subarray_1”).
+  	o	After the first subarray has been processed, increment the placeholder marker by 3
+  	columns, so that we can now process a second subarray, beginning with the placeholder
+  	at (1, 4) for a total of 9 squares ending at (3, 6):
+  			Process the second subarray, assigning all values to a temporary checking array.
+  			Check each value in the second subarray, pushing any duplicates to a vector named
+  		for that subarray (e.g., “duplicates_Subarray_2”).
+  	o	After the second subarray has been processed, increment the placeholder marker by
+  	another 3 columns, so that we can now process a third subarray, beginning with the
+  	placeholder at (1, 7) for a total of 9 squares ending at (3, 9):
+  			Process this subarray and push any duplicates to a unique vector, as with the
+  		previous subarrays.
+  	o	After processing the third subarray beginning at (1, 7), the placeholder marker is
+  	moved back to column 1 and incremented by 3 rows, so that we can now process a fourth
+  	subarray, beginning with the placeholder at (4, 1) for a total of 9 squares ending at
+  	(6, 3).
+  			Process this subarray and push any duplicates to a unique vector, as with the
+  		previous subarrays.
+  	o	The remaining subarrays are processed in a similar manner, with the placeholder
+  	marker acting as a guide, and any duplicates pushed to unique vectors that correspond
+  	to the subarrays:
+  			Fifth subarray, beginning with the placeholder at (4, 4) for a total of 9 squares
+  		ending at (6, 6).
+  			Sixth subarray, beginning with the placeholder at (4, 7) for a total of 9 squares
+  		ending at (6, 9).
+  			(placeholder marker is then moved back to column 1 and incremented by three rows)
+  			Seventh subarray, beginning with the placeholder at (7, 1) for a total of 9
+  		squares ending at (9, 3).
+  			Eighth subarray, beginning with the placeholder at (7, 4) for a total of 9 squares
+  		ending at (9, 6).
+  			Ninth subarray, beginning with the placeholder at (7, 7) for a total of 9 squares
+  		ending at (9, 9).
+Output results phase – display any rows, columns, and subarrays that contain duplicate
+values, and the duplicate values that are contained for each.
+  •	Format a table for rows, columns and subarrays
+  	o	If none of the “row vectors” contain any duplicate values, output “No rows contained
+  	duplicate values.”
+  	o	If a row vector does contain duplicate values, display the row number (known from the
+  	title of its duplicate vector), and any values it contains. Repeat for all row vectors
+  	that contain duplicate values.
+  	o	If none of the “column vectors” contain any duplicate values, output “No columns
+  	contained duplicate values.”
+  	o	If a column vector does contain duplicate values, display the column number (known
+  	from the title of its duplicate vector), and any values it contains. Repeat for all
+  	column vectors that contain duplicate values.
+  	o	If none of the “subarray vectors” contain any duplicate values, output “No subarrays
+  	contained duplicate values.”
+  	o	If a subarray vector does contain duplicate values, display the subarray number
+  	(known from the title of its duplicate vector), and any values it contains. Repeat for
+  	all subarray vectors that contain duplicate values.
+Option to try again or quit – allow user to try another configuration or exit.
+  •	After results are displayed, the user is given the option:
+  	o	Press “T” to try another configuration.
+  	o	Press “Q” to quit.
+
+* Perhaps instead of displaying the results as text (as outlined in the Output results
+phase, above), the program could display any duplicates graphically on a grid, by
+comparing any values from each duplicate vector to the values from each square of the
+9 x 9 2D array that was initially entered. This might require some rethinking of the way
+I’ve set up the duplicates to be stored in their respective row, column, and subarray
+vectors, though.

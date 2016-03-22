@@ -71,7 +71,7 @@ bool SuCheck::checkRows()
 *****************************************************************************/
 bool SuCheck::checkRows()
 {
-    rowCheck = true;
+    columnCheck = true;
     for (int col = 0; col < 9; row ++)
         {
             for (int row = 0; row < 9; row++)

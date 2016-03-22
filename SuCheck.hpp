@@ -1,4 +1,4 @@
-/*Sudoku Checker Implementation File
+/*Sudoku Checker Specification File
 **Michael Lewis and Matt Yates
 **Problem 6.14 - Elements of Programming Interviews */
 

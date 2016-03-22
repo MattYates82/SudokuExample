@@ -12,12 +12,26 @@
 *****************************************************************************/
 SuCheck::SuCheck(const int* arrayCopy)
 {
-    // Initializes all bools to 0 (false)
+    // Initializes all bools to false (0)
     /*Yates: I always like to set my bools equal to true or false for readability
     Could we do that?  Other than that, I don't have any issues with what you've
     done here.  I will be adding my implementation of checkRows and checkColumns below*/
     
-    rowCheck = columnCheck = subBoardCheck = boardCheck = 0;
+    /*Lewis: Yes, definitely. That sounds like a good idea, I'm still learning the best
+    practices and conventions, and that makes sense to me. I've made the change.
+    
+    Thanks for adding checkRows and checkColumns, looks good to me, I think just what
+    might be two minor errors:
+    1. In the checkColumns function, the header is currently "checkRows()" instead of
+    "checkColumns".
+    2. In the outer for loop for the checkColumns function, it has "row++" but I think
+    it just needs to be changed to "col++".
+    
+    I'd make the changes but I'm not sure yet what the best practice is--if I were to
+    make them, would I make the changes and then commit directly to the current branch or
+    create a new branch? Let me know what you think.*/
+    
+    rowCheck = columnCheck = subBoardCheck = boardCheck = false;
 
     int counter = 0; // For incrementing contents of arrayCopy
     
@@ -66,13 +80,13 @@ bool SuCheck::checkRows()
 * Function which iterates through each column of the member 2D array suBoard,*
 * verifying that each element is in [1,9], aside from blanks represented by  *
 * 0. Additionally, the function determines if any elements in [1,9] are      *
-* repeated.  Returns true if all non-zero elements are in [1,9] with no      *
-* repeates.                                                                  *
+* repeated. Returns true if all non-zero elements are in [1,9] with no       *
+* repeats.                                                                   *
 *****************************************************************************/
 bool SuCheck::checkRows()
 {
     columnCheck = true;
-    for (int col = 0; col < 9; row ++)
+    for (int col = 0; col < 9; row++)
         {
             for (int row = 0; row < 9; row++)
                 {

@@ -124,18 +124,28 @@ bool SuCheck::checkSubBoards()
                     {
                         subBoardCheck = false;
                     }
+                    
+                    // Comparison algorithm:
+                    int dupAccumulator = 0;
                     // Increment by each row of subBoard.
                     for (int i = (row + rowOffset); i < (3 + rowOffset); i++)
                     {
-                        // Increment through each column of each row of subBoard. 
+                        // Increment through each column of each row of subBoard.
                         for (int j = (col + colOffset); j < (3 + colOffset); j++)
                         {
-                            // Testing value "!= 1" instead of 0 because we must be able to
-                            // loop back to the first column of the subBoard for each of its
-                            // rows, therefore we are not using "i + 1" in the for loop and
-                            // therefore the subBoard check will match exactly for its 
-                            // starting value.
-                            if (suBoard[row][col] == (suBoard[i][j] && suBoard[row][col] != 1))
+                            if (suBoard[row][col] == suBoard[i][j] && suBoard[row][col] != 0)
+                            {
+                                // The dupAccumulator will be incremented once since the
+                                // initial value of suBoard[i][j] will be equivalent to
+                                // suBoard[i][j]. I could not use "i + 1" in the init expression
+                                // of the for loop, because this would result in ignoring the
+                                // first column of each subBoard for its second and third rows.
+                                // Thus, if there are no duplicates other than that initial
+                                // value, then the dupAccumulator should equal a total of 1 at
+                                // the end of the check of each subBoard.
+                                dupAccumulator++;
+                            }
+                            if (dupAccumulator > 1)
                             {
                                 subBoardCheck = false;
                             }

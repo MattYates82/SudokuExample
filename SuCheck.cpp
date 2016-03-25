@@ -4,19 +4,19 @@
 
 #include "SuCheck.hpp"
 
-/****************************************************************************
-*                       SuCheck Constructor                                 *
-* Default constructor that takes a pointer to constant int as its single    *
-* parameter. Initializes all class member boolean variables to 0. Copies    *
-* the array pointed to by parameter into the class member array.            *
+/*****************************************************************************
+*                       SuCheck Constructor                                  *
+* Default constructor that takes a 9X9 array as a parameter. The constructor *
+* initializes all class member boolean variables to false and copies the     *
+* array pointed to by parameter into the class member array.                 *
 *****************************************************************************/
 SuCheck::SuCheck(int array[9][9])
 {
-    // Initializes all bools to false (0)
+    // Initializes all bools to false 
 
     rowCheck = columnCheck = subBoardCheck = boardCheck = false;
 
-    // Copies the array whose starting address is passed into the function
+    // Copies the array passed into the function
     // into the member array.
     for(int row = 0; row < 9; row++)
     {
@@ -162,6 +162,10 @@ bool SuCheck::checkSubBoards()
 *****************************************************************************/
 bool SuCheck::checkBoard()
 {
+//checkBoard calls the private bool functions with a series of nested if 
+//statements, returning false if any rows, columns, or 3X3 sub-arrays contain
+//illegal entries
+	
 	boardCheck = false;
 
 	if (this->checkRows() == true)

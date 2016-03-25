@@ -98,13 +98,14 @@ bool SuCheck::checkSubBoards()
     subBoardCheck = true;
     // The rowOffset results in incrementing the subBoard by 3 rows
     // vertically after every 3 arrays are incremented horizontally
-    // by the colOffset
+    // by the colOffset.
     for (int rowOffset = 0; rowOffset < 7; rowOffset += 3)
     {
         // The colOffset results in incrementing each subBoard to the
         // next subBoard to the right (by three columns), and for
         // every 3rd subBoard, back to the subBoard in the first
         // column (and down by 3 rows per the rowOffset.
+
         for (int colOffset = 0; colOffset < 7; colOffset += 3)
         {
             // Adding the rowOffset to the initialization and test
@@ -115,21 +116,21 @@ bool SuCheck::checkSubBoards()
                 // Adding the rowOffset to the initialization and test
                 // expressions of this for loop will allow for proper
                 // incrementing of the subBoard by row.
-                for (int col = (0 + colOffset); col < (3 + rowOffset); col++)
+
+                for (int col = (0 + colOffset); col < (3 + colOffset); col++)
                 {
                     // Determine if there are any elements not in [0,9]
                     if (suBoard[row][col] < 0 || suBoard[row][col] > 9)
                     {
                         subBoardCheck = false;
                     }
-
                     // Comparison algorithm:
                     int dupAccumulator = 0;
                     // Increment by each row of subBoard.
-                    for (int i = (row + rowOffset); i < (3 + rowOffset); i++)
+                    for (int i = rowOffset; i < (3 + rowOffset); i++)
                     {
                         // Increment through each column of each row of subBoard.
-                        for (int j = (col + colOffset); j < (3 + colOffset); j++)
+                        for (int j = colOffset; j < (3 + colOffset); j++)
                         {
                             if (suBoard[row][col] == suBoard[i][j] && suBoard[row][col] != 0)
                             {

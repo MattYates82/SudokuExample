@@ -14,13 +14,13 @@ private:
 	bool rowCheck, columnCheck, subBoardCheck;
 	bool boardCheck;
 	int suBoard[9][9];
-	bool SuCheck::checkRows();
-	bool SuCheck::checkColumns();
-	bool SuCheck::checkSubBoards();
+	bool checkRows();
+	bool checkColumns();
+	bool checkSubBoards();
 
 public:
 
-	SuCheck(const int*);
+	SuCheck(int array[9][9]);
 	bool checkBoard();
 
 };

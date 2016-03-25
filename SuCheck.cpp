@@ -10,22 +10,20 @@
 * parameter. Initializes all class member boolean variables to 0. Copies    *
 * the array pointed to by parameter into the class member array.            *
 *****************************************************************************/
-SuCheck::SuCheck(const int* arrayCopy)
+SuCheck::SuCheck(int array[9][9])
 {
     // Initializes all bools to false (0)
-    
+
     rowCheck = columnCheck = subBoardCheck = boardCheck = false;
 
-    int counter = false; // For incrementing contents of arrayCopy
-    
     // Copies the array whose starting address is passed into the function
     // into the member array.
     for(int row = 0; row < 9; row++)
     {
         for(int col = 0; col < 9; col++)
         {
-            suBoard[row][col] = *(arrayCopy + counter);
-            counter++;
+            suBoard[row][col] = array[row][col];
+
         }
     }
 }
@@ -50,7 +48,7 @@ bool SuCheck::checkRows()
                     //Determine if any elements are repeated in current row
                     for (int i = col+1; i < 9; i ++)
                     {
-                        if (suBoard[row][col] == suBoard[row][i])
+                        if (suBoard[row][col] == suBoard[row][i] && suBoard[row][col] != 0)
                             rowCheck = false;
                     }
                 }
@@ -124,7 +122,7 @@ bool SuCheck::checkSubBoards()
                     {
                         subBoardCheck = false;
                     }
-                    
+
                     // Comparison algorithm:
                     int dupAccumulator = 0;
                     // Increment by each row of subBoard.
@@ -156,4 +154,22 @@ bool SuCheck::checkSubBoards()
         }
     }
     return subBoardCheck;
+}
+/*****************************************************************************
+*                       SuCheck::checkBoard                                  *
+*Public member function which calls private member functions to determine if *
+*a particular instance of a Sudoku 9X9 board is valid.                       *
+*****************************************************************************/
+bool SuCheck::checkBoard()
+{
+	boardCheck = false;
+
+	if (this->checkRows() == true)
+		if (this->checkColumns() == true)
+			if (this->checkSubBoards() == true)
+				boardCheck = true;
+
+
+	return boardCheck;
+
 }
